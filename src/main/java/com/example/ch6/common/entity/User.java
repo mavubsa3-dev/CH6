@@ -20,7 +20,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "user_email", nullable = false)
+	@Column(name = "user_email", nullable = false, unique = true)
 	private String email;
 
 	@Column(name = "user_password", nullable = false)
@@ -32,11 +32,22 @@ public class User {
 	@Column(name = "point_balance", nullable = false)
 	private Integer balance;
 
-	public User(String email, String password, String name, Integer balance){
+	private User(String email, String password, String name, Integer balance){
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.balance = balance;
+	}
+
+	public static User From(String email, String password, String name, Integer balance){
+		return new User(email, password, name, balance);
+	}
+
+	public void chargeBalance(Integer balance){
+		if(balance < 0){
+			throw new IllegalArgumentException("금액은 0원 이상이어야 합니다.");
+		}
+		this.balance += balance;
 	}
 
 }

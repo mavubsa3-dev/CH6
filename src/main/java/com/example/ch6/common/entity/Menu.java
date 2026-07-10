@@ -30,13 +30,17 @@ public class Menu {
 	@Column(name = "menu_description", nullable = false)
 	private String description;
 
-	private Menu(String name, Integer price, String description){
+	@Column(name = "menu_stock", nullable = false)
+	private Integer stock;
+
+	private Menu(String name, Integer price, String description, Integer stock){
 		this.name = name;
 		this.price = price;
 		this.description = description;
+		this.stock = stock;
 	}
 
-	public static Menu from(String name, Integer price, String description){
-		return new Menu(name, price, description);
+	public static Menu from(String name, Integer price, String description, Integer stock){
+		return new Menu(name, price, description, stock);
 	}
 }

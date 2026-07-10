@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+public class Order extends BaseTimeEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,15 +40,16 @@ public class Order {
 	@JoinColumn(name = "menu_id", nullable = false)
 	private Menu menu;
 
-	@Column(name = "order_Time", nullable = false)
-	private LocalDateTime orderdAt;
 
-	public Order(User user, Menu menu, String orderNumber, Integer totalPrice, LocalDateTime orderdAt){
+	private Order(User user, Menu menu, String orderNumber, Integer totalPrice){
 		this.user = user;
 		this.menu = menu;
 		this.orderNumber = orderNumber;
 		this.totalPrice = totalPrice;
-		this.orderdAt = orderdAt;
+	}
+
+	public static Order From(User user, Menu menu, String orderNumber, Integer totalPrice){
+		return new Order(user, menu, orderNumber, totalPrice);
 	}
 
 

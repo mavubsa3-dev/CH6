@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.ch6.common.entity.Menu;
 import com.example.ch6.domain.inquiry.model.response.GetCoffeMenuResponse;
 import com.example.ch6.domain.inquiry.repository.InquiryRepository;
-
+import com.example.ch6.domain.repository.MenuRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,9 +18,10 @@ import lombok.RequiredArgsConstructor;
 public class InquiryService {
 
 	private final InquiryRepository inquiryRepository;
+	private final MenuRepository menuRepository;
 
 	public List<GetCoffeMenuResponse> findCoffeeMenu(){
-		List<Menu> list = inquiryRepository.findAll();
+		List<Menu> list = menuRepository.findAll();
 		if(list.isEmpty()){
 			throw new IllegalArgumentException("등록된 상품이 없습니다.");
 		}
@@ -32,7 +33,7 @@ public class InquiryService {
 	}
 
 	public GetCoffeMenuResponse findOneCoffeeMenu(Long menuId){
-		Menu menu = inquiryRepository.findById(menuId).orElseThrow(
+		Menu menu = menuRepository.findById(menuId).orElseThrow(
 			() -> new IllegalArgumentException("등록된 상품이 아닙니다.")
 		);
 

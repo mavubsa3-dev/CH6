@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "payments")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Payment {
+public class Payment extends BaseTimeEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,13 +45,19 @@ public class Payment {
 	private PaymentStatus paymentStatus;
 
 
-	public Payment(Order order, Integer totalPrice, Integer usePoint, PaymentStatus status, LocalDateTime paidAt){
+	private Payment(Order order, Integer totalPrice, Integer usePoint, PaymentStatus status, LocalDateTime paidAt){
 		this.order = order;
 		this.totalPrice = totalPrice;
 		this.paymentStatus = status;
 		this.usePoint = usePoint;
 		this.paidAt = paidAt;
 	}
+
+	public static Payment From(Order order, Integer totalPrice, Integer usePoint, PaymentStatus status, LocalDateTime paidAt){
+		return new Payment(order, totalPrice, usePoint, status, paidAt);
+	}
+
+	public void markPendingPayment
 
 
 }
