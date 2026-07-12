@@ -43,4 +43,11 @@ public class Menu {
 	public static Menu from(String name, Integer price, String description, Integer stock){
 		return new Menu(name, price, description, stock);
 	}
+
+	public void decreaseStock(Integer stock){
+		if(this.stock < stock){
+			throw new IllegalArgumentException("재고가 부족합니다.");
+		}
+		this.stock -= stock;
+	}
 }

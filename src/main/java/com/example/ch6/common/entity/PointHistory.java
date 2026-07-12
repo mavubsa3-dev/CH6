@@ -28,8 +28,8 @@ public class PointHistory extends BaseTimeEntity{
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@JoinColumn(name = "payment_id", nullable = false)
+	private Payment payment;
 
 	@Enumerated(EnumType.STRING)
 	private PointType pointType;
@@ -37,13 +37,13 @@ public class PointHistory extends BaseTimeEntity{
 	@Column(name = "points", nullable = false)
 	private Integer amount;
 
-	private PointHistory(User user, PointType pointType, Integer amount){
-		this.user = user;
+	private PointHistory(Payment payment, PointType pointType, Integer amount){
+		this.payment = payment;
 		this.pointType = pointType;
 		this.amount = amount;
 	}
 
-	public static PointHistory from(User user, PointType pointType, Integer amount){
-		return new PointHistory(user, pointType, amount);
+	public static PointHistory from(Payment payment, PointType pointType, Integer amount){
+		return new PointHistory(payment, pointType, amount);
 	}
 }

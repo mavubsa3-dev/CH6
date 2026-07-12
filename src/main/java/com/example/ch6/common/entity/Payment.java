@@ -57,7 +57,6 @@ public class Payment extends BaseTimeEntity{
 		return new Payment(order, totalPrice, usePoint, status, paidAt);
 	}
 
-	public void markPendingPayment
 
 
 }

@@ -50,4 +50,11 @@ public class User {
 		this.balance += balance;
 	}
 
+	public void deductBalance(Integer usePoint){
+		if(this.balance <  usePoint){
+			throw new IllegalArgumentException("잔액이 부족합니다.");
+		}
+		this.balance -= usePoint;
+	}
+
 }
