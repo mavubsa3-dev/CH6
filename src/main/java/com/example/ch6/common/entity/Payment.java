@@ -34,8 +34,8 @@ public class Payment extends BaseTimeEntity{
 	@Column(name = "total_amount", nullable = false)
 	private Integer totalPrice;
 
-	@Column(name = "user_point", nullable = false)
-	private Integer usePoint;
+	@Column(name = "user_balance", nullable = false)
+	private Integer balance;
 
 	@Column(name = "paid_time", nullable = false)
 	private LocalDateTime paidAt;
@@ -45,11 +45,11 @@ public class Payment extends BaseTimeEntity{
 	private PaymentStatus paymentStatus;
 
 
-	private Payment(Order order, Integer totalPrice, Integer usePoint, PaymentStatus status, LocalDateTime paidAt){
+	private Payment(Order order, Integer totalPrice, Integer balance, PaymentStatus status, LocalDateTime paidAt){
 		this.order = order;
 		this.totalPrice = totalPrice;
 		this.paymentStatus = status;
-		this.usePoint = usePoint;
+		this.balance = balance;
 		this.paidAt = paidAt;
 	}
 

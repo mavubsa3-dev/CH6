@@ -59,20 +59,16 @@ public class OrderService {
 
 		String orderNumber = "OrderNuber - " + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 		List<OrderItem> orderItems = new ArrayList<>();
-		Order order = Order.From(user, orderItems, orderNumber, totalAmount);
+		Order order = Order.From(user, orderItems,orderNumber, totalAmount);
 
 		for (CartItem cartItem : cartItems) {
 			OrderItem orderItem = OrderItem.from(cartItem.getMenu(), cartItem.getMenu().getPrice(), cartItem.getQuantity());
 
 			orderItem.assingOrder(order);
+			order.getOrderItems().add(orderItem);
 		}
 		orderRepository.save(order);
 
-		Payment payment = Payment.From(order, totalAmount, request.usePoint(), PaymentStatus.SUCCESS, LocalDateTime.now());
-		paymentRepository.save(payment);
-
-		PointHistory pointHistory = PointHistory.from(payment, PointType.USE, totalAmount);
-		pointHistoryRepository.save(pointHistory);
 
 		return new CreateOrderResponse(order.getId(), orderNumber, totalAmount, request.usePoint(), user.getBalance());
 

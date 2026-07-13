@@ -33,6 +33,7 @@ public class Order extends BaseTimeEntity{
 	@Column(name = "order_number", nullable = false, unique = true)
 	private String orderNumber;
 
+
 	@Column(name = "order_price", nullable = false)
 	private Integer totalPrice;
 
@@ -44,7 +45,7 @@ public class Order extends BaseTimeEntity{
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 
-	private Order(User user, List<OrderItem> orderItems, String orderNumber, Integer totalPrice){
+	private Order(User user, List<OrderItem> orderItems,  String orderNumber, Integer totalPrice){
 		this.user = user;
 		this.orderItems = orderItems;
 		this.orderNumber = orderNumber;

@@ -1,8 +1,12 @@
 package com.example.ch6.domain.pointhistory.service;
 
+import java.awt.*;
+
 import org.springframework.stereotype.Service;
 
+import com.example.ch6.common.entity.PointHistory;
 import com.example.ch6.common.entity.User;
+import com.example.ch6.common.status.PointType;
 import com.example.ch6.domain.pointhistory.model.request.ChargePointRequest;
 import com.example.ch6.domain.pointhistory.repository.PointHistoryRepository;
 import com.example.ch6.domain.repository.UserRepository;
@@ -22,7 +26,9 @@ public class PointHistoryService {
 		);
 
 		user.chargeBalance(request.point());
-		userRepository.save(user);
+
+		PointHistory pointHistory = PointHistory.from(user, PointType.CHARGE, request.point());
+		pointHistoryRepository.save(pointHistory);
 
 		return user.getId() + "에 " + request.point() + " 포인트를 충전했습니다. 잔액 : " + user.getBalance();
 	}

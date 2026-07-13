@@ -12,6 +12,8 @@ import com.example.ch6.domain.cartitem.model.response.GetItemResponse;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
+	void deleteAllByUserId(Long userId);
+
 	Optional<CartItem> findByUser_idAndMenu_id(Long userId, Long menuId);
 
 	@Query("""
