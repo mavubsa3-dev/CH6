@@ -43,6 +43,10 @@ public class PaymentService {
 			() -> new IllegalArgumentException("존재하지 않는 주문입니다.")
 		);
 
+		if(paymentRepository.existsByOrderId(order.getId())){
+			throw new IllegalArgumentException("이미 결제가 완료된 주문입니다.");
+		}
+
 		validPayment(order);
 
 		Payment payment = Payment.From(order, order.getTotalPrice(), order.getUser().getBalance(), PaymentStatus.SUCCESS, LocalDateTime.now());

@@ -14,4 +14,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 					and o.user.id = :userId
 		""")
 	Payment findByOrderIdAndUserId(Long orderId, Long userId);
+
+	boolean existsByOrderId(Long orderId);
 }
