@@ -34,10 +34,8 @@ public class OrderService {
 
 	private final OrderRepository orderRepository;
 	private final UserRepository userRepository;
-	private final MenuRepository menuRepository;
-	private final PaymentRepository paymentRepository;
-	private final PointHistoryRepository pointHistoryRepository;
 	private final CartItemRepository cartItemRepository;
+	private final MenuRepository menuRepository;
 
 	@Transactional
 	public CreateOrderResponse createOrder(CreateOrderRequest request){
@@ -49,6 +47,12 @@ public class OrderService {
 		if(cartItems.isEmpty() || cartItems == null){
 			throw new IllegalArgumentException("장바구니를 찾을 수 없습니다.");
 		}
+
+		List<Long> menuIds = cartItems.stream()
+			.map(cartItem -> cartItem.getMenu().getId())
+			.toList();
+
+		menuRepository.findAllByIdWithLock(menuIds);
 
 		for (CartItem cartItem : cartItems) {
 			cartItem.getMenu().decreaseStock(cartItem.getQuantity());
