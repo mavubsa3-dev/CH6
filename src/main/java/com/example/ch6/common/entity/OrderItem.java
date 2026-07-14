@@ -49,5 +49,6 @@ public class OrderItem {
 
 	public void assingOrder(Order order){
 		this.order = order;
+		order.getOrderItems().add(this);
 	}
 }

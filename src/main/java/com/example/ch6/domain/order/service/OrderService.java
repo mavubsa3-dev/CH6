@@ -44,7 +44,7 @@ public class OrderService {
 		);
 
 		List<CartItem> cartItems = cartItemRepository.findAllById(request.cartItemId());
-		if(cartItems.isEmpty() || cartItems == null){
+		if(cartItems.isEmpty()){
 			throw new IllegalArgumentException("장바구니를 찾을 수 없습니다.");
 		}
 
@@ -62,14 +62,12 @@ public class OrderService {
 			.mapToInt(cartItem -> cartItem.getQuantity() * cartItem.getMenu().getPrice()).sum();
 
 		String orderNumber = "OrderNuber - " + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-		List<OrderItem> orderItems = new ArrayList<>();
-		Order order = Order.From(user, orderItems,orderNumber, totalAmount);
+		Order order = Order.From(user, orderNumber, totalAmount);
 
 		for (CartItem cartItem : cartItems) {
 			OrderItem orderItem = OrderItem.from(cartItem.getMenu(), cartItem.getMenu().getPrice(), cartItem.getQuantity());
 
 			orderItem.assingOrder(order);
-			order.getOrderItems().add(orderItem);
 		}
 		orderRepository.save(order);
 

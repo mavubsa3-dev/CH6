@@ -46,4 +46,5 @@ public class PointHistory extends BaseTimeEntity{
 	public static PointHistory from(User user, PointType pointType, Integer amount){
 		return new PointHistory(user, pointType, amount);
 	}
+
 }

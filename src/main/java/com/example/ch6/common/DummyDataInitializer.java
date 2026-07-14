@@ -25,11 +25,11 @@ public class DummyDataInitializer implements CommandLineRunner {
 		// 이미 데이터가 있다면 중복 생성하지 않도록 방어 로직 추가
 		if (menuRepository.count() == 0) {
 			List<Menu> dummyMenus = List.of(
-				Menu.from("아이스 아메리카노", 2000, "시원하고 깔끔한 맛의 아메리카노", 10),
-				Menu.from("카페 라떼", 3000, "고소한 우유가 듬뿍 들어간 라떼", 10),
-				Menu.from("바닐라 라떼", 3500, "달콤한 바닐라 시럽이 추가된 라떼", 10),
-				Menu.from("콜드브루", 3500, "12시간 동안 차갑게 우려낸 깔끔한 커피", 10),
-				Menu.from("딸기 스무디", 4000, "신선한 딸기를 갈아 만든 상큼한 스무디", 10)
+				Menu.from("아이스 아메리카노", 2000, "시원하고 깔끔한 맛의 아메리카노", 50),
+				Menu.from("카페 라떼", 3000, "고소한 우유가 듬뿍 들어간 라떼", 50),
+				Menu.from("바닐라 라떼", 3500, "달콤한 바닐라 시럽이 추가된 라떼", 50),
+				Menu.from("콜드브루", 3500, "12시간 동안 차갑게 우려낸 깔끔한 커피", 50),
+				Menu.from("딸기 스무디", 4000, "신선한 딸기를 갈아 만든 상큼한 스무디", 50)
 			);
 
 			menuRepository.saveAll(dummyMenus);

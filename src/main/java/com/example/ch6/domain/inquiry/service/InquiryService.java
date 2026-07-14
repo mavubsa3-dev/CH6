@@ -1,5 +1,6 @@
 package com.example.ch6.domain.inquiry.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,18 +18,11 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class InquiryService {
 
-	private final InquiryRepository inquiryRepository;
 	private final MenuRepository menuRepository;
 
 	public List<GetCoffeMenuResponse> findCoffeeMenu(){
-		List<Menu> list = menuRepository.findAll();
-		if(list.isEmpty()){
-			throw new IllegalArgumentException("등록된 상품이 없습니다.");
-		}
-
-		return list.stream()
-			.map(result -> new GetCoffeMenuResponse(result.getId(), result.getName(), result.getPrice(),
-				result.getDescription()))
+		return menuRepository.findAll().stream()
+			.map(GetCoffeMenuResponse::from)
 			.toList();
 	}
 

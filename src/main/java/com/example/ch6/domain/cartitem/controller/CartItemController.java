@@ -19,6 +19,7 @@ import com.example.ch6.domain.cartitem.model.response.GetItemListResponse;
 import com.example.ch6.domain.cartitem.model.response.GetItemResponse;
 import com.example.ch6.domain.cartitem.service.CartItemService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,7 +30,7 @@ public class CartItemController {
 	private final CartItemService cartItemService;
 
 	@PostMapping("/{userId}")
-	public ResponseEntity<AddCartItemResponse> addItem(@PathVariable Long userId, @RequestBody AddCartItemRequest request){
+	public ResponseEntity<AddCartItemResponse> addItem(@PathVariable Long userId, @Valid @RequestBody AddCartItemRequest request){
 		return ResponseEntity.status(HttpStatus.OK).body(cartItemService.addItem(userId, request));
 	}
 

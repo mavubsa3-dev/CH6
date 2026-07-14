@@ -50,4 +50,8 @@ public class Menu {
 		}
 		this.stock -= stock;
 	}
+
+	public void restoreStock(Integer stock) {
+		this.stock += stock;
+	}
 }
